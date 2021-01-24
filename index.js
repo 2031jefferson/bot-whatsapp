@@ -22,20 +22,20 @@ const start = (aruga = new Client()) => {
 	const groups = await aruga.getAllGroups()
 	// kondisi ketika batas group bot telah tercapai,ubah di file settings/setting.json
 	if (groups.length > groupLimit) {
-	await aruga.sendText(chat.id, `Sorry, the group on this bot is full\nMax Group is: ${groupLimit}`).then(() => {
+	await aruga.sendText(chat.id, `Desculpe, o grupo neste bot está cheio \nMax Group é: ${groupLimit}`).then(() => {
 	      aruga.leaveGroup(chat.id)
 	      aruga.deleteChat(chat.id)
 	  }) 
 	} else {
 	// kondisi ketika batas member group belum tercapai, ubah di file settings/setting.json
 	    if (chat.groupMetadata.participants.length < memberLimit) {
-	    await aruga.sendText(chat.id, `Sorry, BOT comes out if the group members do not exceed ${memberLimit} people`).then(() => {
+	    await aruga.sendText(chat.id, `Desculpe, BOT sai se os membros do grupo não excederem ${memberLimit} pessoas`).then(() => {
 	      aruga.leaveGroup(chat.id)
 	      aruga.deleteChat(chat.id)
 	    })
 	    } else {
         await aruga.simulateTyping(chat.id, true).then(async () => {
-          await aruga.sendText(chat.id, `what up y'all~, I'm Thoriq BOT. Untuk mencari tahu command BOT, ketik ${prefix}menu`)
+          await aruga.sendText(chat.id, `e aí vocês, sou jhefer BOT. Para descobrir o meus comando de bot, digite ${prefix}menu`)
         })
 	    }
 	}
@@ -49,20 +49,20 @@ const start = (aruga = new Client()) => {
             const pChat = await aruga.getContact(event.who)
             const { contact, groupMetadata, name} = gChat
             const gatauih = await aruga.getProfilePicFromServer(event.who)
-            const capt = `*ey yo,what up!* *@${event.who.replace('@c.us','')}*\n\nWelcome to *${name}*\n\nThere is nothing to say, just follow the rules of ${name}* Group.\n\n*Commands bot ${prefix}menu , ${prefix}p*`
+            const capt = `*ei ei!* *@${event.who.replace('@c.us','')}*\n\nBem-vindo ao *${name}*\n\nNão há nada a dizer, basta seguir as regras de ${name}* .\n\n*Comandos do bot ${prefix}menu , ${prefix}p*`
             await aruga.sendFileFromUrl(event.chat, gatauih, 'profile.jpg', capt)
         }
         // kondisi ketika seseorang dikick/keluar dari group
         if (event.action === 'remove' && event.who !== host) {
             const zchat = await aruga.getProfilePicFromServer(event.who)
-            const aigo = `eh @${event.who.replace('@c.us', '')} malah keluar:(`
+            const aigo = `eh @${event.who.replace('@c.us', '')} até logo jovem:(`
             await aruga.sendFileFromUrl(event.chat, zchat, 'profile.jpg', aigo)
         }
     })
 
     aruga.onIncomingCall(async (callData) => {
         // ketika seseorang menelpon nomor bot akan mengirim pesan
-        await aruga.sendText(callData.peerJid, 'Maaf sedang tidak bisa menerima panggilan.\n\n-bot')
+        await aruga.sendText(callData.peerJid, 'Desculpe, você não pode receber chamadas.\n\n-bot')
         .then(async () => {
             // bot akan memblock nomor itu
             await aruga.contactBlock(callData.peerJid)
